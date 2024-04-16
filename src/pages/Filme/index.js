@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom'; //navigate para enviar o usuário de volta caso a página não exista
 import api from "../../services/api";
 import './style.css'
 
@@ -7,6 +7,7 @@ function Filme(){
 
     const{id} = useParams();
     const [filme, setFilme] = useState({});
+    const navigate = useNavigate();
     const[loading, setLoading] = useState(true);
 
     useEffect(()=>{
@@ -23,6 +24,8 @@ function Filme(){
             })
             .catch(()=>{
                 console.log("FILME NÃO ENCONTRADO")
+                navigate("/", {replace: true})
+                return;
             })
         }
 
@@ -30,7 +33,7 @@ function Filme(){
 
         return()=>{console.log("Componente foi desmontado")}
 
-    },[])
+    },[navigate, id])
 
 
     if(loading){
@@ -50,7 +53,7 @@ function Filme(){
 
             <div className="area-buttons">
             <button>Salvar</button>
-            <button><a href="#">Trailer</a></button>
+            <button><a rel="external" target="_blank" href={`https://youtube.com/results?search_query=${filme.title} Trailer`}>Trailer</a></button>
             </div>
         </div>
     );
