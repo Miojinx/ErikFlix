@@ -28,7 +28,7 @@
 .lista-filmes img{
     width: 900px;
     max-width: 100%;
-    min-width: 340px;
+    max-height: 340px;
     object-fit: cover;
     display: block;
     border-top-left-radius: 8px;
